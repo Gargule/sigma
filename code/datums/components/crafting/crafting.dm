@@ -105,6 +105,17 @@
 
 	if(!isturf(a.loc))
 		return
+	var/list/L = block(get_step(user, SOUTHWEST), get_step(user, NORTHEAST))
+	for(var/A in L)
+		var/turf/T = A
+		if(T.Adjacent(user))
+			for(var/B in T)
+				var/atom/movable/AM = B
+				if(AM.flags_1 & HOLOGRAM_1)
+					continue
+				. += AM
+	for(var/slot in list(ITEM_SLOT_RPOCKET, ITEM_SLOT_LPOCKET))
+		. += user.get_item_by_slot(slot)
 
 	for(var/atom/movable/AM in range(radius_range, a))
 		if(AM.flags_1 & HOLOGRAM_1)

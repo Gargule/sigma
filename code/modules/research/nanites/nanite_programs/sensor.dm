@@ -181,6 +181,11 @@
 	desc = "The nanites receive a signal when a host's specific damage type is above/below a target value."
 	can_rule = TRUE
 	var/spent = FALSE
+/* //theta-code
+	var/damage_type = BRUTE
+	var/damage = 50
+	var/direction = "Above"
+ theta-sigma*/
 
 /datum/nanite_program/sensor/damage/register_extra_settings()
 	. = ..()

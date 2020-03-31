@@ -121,6 +121,20 @@
 
 /obj/item/clothing/glasses/meson/engine/update_icon_state()
 	icon_state = item_state = "trayson-[mode]"
+/*
+/obj/item/clothing/glasses/meson/engine/update_icon()
+	icon_state = "trayson-[mode]"
+	update_mob()
+
+/obj/item/clothing/glasses/meson/engine/proc/update_mob()
+	item_state = icon_state
+	if(isliving(loc))
+		var/mob/living/user = loc
+		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
+			user.update_inv_glasses()
+		else
+			user.update_inv_hands()
+*/
 
 /obj/item/clothing/glasses/meson/engine/tray //atmos techs have lived far too long without tray goggles while those damned engineers get their dual-purpose gogles all to themselves
 	name = "optical t-ray scanner"

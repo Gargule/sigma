@@ -33,7 +33,6 @@
 		data["alarms"][class] = list()
 		for(var/area in alarms[class])
 			data["alarms"][class] += area
-
 	return data
 
 /obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/A, O, obj/source)

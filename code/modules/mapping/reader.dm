@@ -61,6 +61,10 @@
 
 	//multiz lool
 	while(dmmRegex.Find(tfile, stored_index))
+		// FUCK YOU LUMMOX!!!
+		#if DM_VERSION == 513 && DM_BUILD == 1495
+		dmmRegex.next += length(dmmRegex.match)
+		#endif
 		stored_index = dmmRegex.next
 
 		// "aa" = (/type{vars=blah})

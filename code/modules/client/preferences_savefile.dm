@@ -53,6 +53,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(current_version < 32)	//If you remove this, remove force_reset_keybindings() too.
 		addtimer(CALLBACK(src, .proc/force_reset_keybindings), 30)	//No mob available when this is run, timer allows user choice.
 
+	if(current_version < 30)
+		if(clientfps == 0)
+			clientfps = 60
+
 /datum/preferences/proc/update_character(current_version, savefile/S)
 	if(current_version < 19)
 		pda_style = "mono"

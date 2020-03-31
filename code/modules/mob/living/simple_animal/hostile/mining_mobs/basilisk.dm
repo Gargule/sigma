@@ -89,6 +89,27 @@ mob/living/simple_animal/hostile/asteroid/basilisk/proc/cool_down()
 	warmed_up = FALSE
 	projectiletype = /obj/projectile/temp/basilisk
 
+/mob/living/simple_animal/hostile/asteroid/basilisk/AttackingTarget()
+	. = ..()
+	if(lava_drinker && !warmed_up && istype(target, /turf/open/lava))
+		visible_message("<span class='warning'>[src] begins to drink from [target]...</span>")
+		if(do_after(src, 70, target = target))
+			visible_message("<span class='warning'>[src] begins to fire up!</span>")
+			fully_heal()
+			icon_state = "Basilisk_alert"
+			set_varspeed(0)
+			warmed_up = TRUE
+			projectiletype = /obj/projectile/temp/basilisk/heated
+			addtimer(CALLBACK(src, .proc/cool_down), 3000)
+
+mob/living/simple_animal/hostile/asteroid/basilisk/proc/cool_down()
+	visible_message("<span class='warning'>[src] appears to be cooling down...</span>")
+	if(stat != DEAD)
+		icon_state = "Basilisk"
+	set_varspeed(3)
+	warmed_up = FALSE
+	projectiletype = /obj/projectile/temp/basilisk
+
 //Watcher
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
 	name = "watcher"

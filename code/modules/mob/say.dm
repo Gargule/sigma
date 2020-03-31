@@ -36,6 +36,8 @@
 	var/ckeyname = "[usr.ckey]/[usr.name]"
 	webhook_send_me(ckeyname, message)
 
+	webhook_send_me("[usr.ckey]/[usr.name]", message)
+
 	usr.emote("me",1,message,TRUE)
 
 ///Speak as a dead person (ghost etc)

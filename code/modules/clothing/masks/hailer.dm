@@ -111,6 +111,7 @@ GLOBAL_LIST_INIT(hailer_phrases, list(
 
 /obj/item/clothing/mask/gas/sechailer/attack_self()
 	halt()
+
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
 	if(safety)
 		safety = FALSE

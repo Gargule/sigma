@@ -323,6 +323,7 @@ SUBSYSTEM_DEF(shuttle)
 			emergency.request(null, set_coefficient = 2.5)
 			log_shuttle("There is no means of calling the emergency shuttle anymore. Shuttle automatically called.")
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
+			webhook_send_roundstatus("shuttle autocalled")
 
 /datum/controller/subsystem/shuttle/proc/registerHostileEnvironment(datum/bad)
 	hostileEnvironments[bad] = TRUE

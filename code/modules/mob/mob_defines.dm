@@ -191,7 +191,7 @@
 	///Allows a datum to intercept all click calls this mob is the source of
 	var/datum/click_intercept
 
-	///THe z level this mob is currently registered in
+	///The z level this mob is currently registered in
 	var/registered_z = null
 
 	var/memory_throttle_time = 0
@@ -209,5 +209,5 @@
 
 	/// Used for tracking last uses of emotes for cooldown purposes
 	var/list/emotes_used
-	
+
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of mob in openspace.

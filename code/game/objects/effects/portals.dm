@@ -255,3 +255,4 @@
 
 /obj/effect/portal/permanent/one_way/destroy
 	keep = FALSE
+

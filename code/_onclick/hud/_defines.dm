@@ -127,7 +127,10 @@
 
 //Constructs
 #define ui_construct_pull "EAST,CENTER-2:15"
-#define ui_construct_health "EAST,CENTER:15"
+#define ui_construct_health "EAST,CENTER:15"  //same as humans and slimes
+
+//slimes
+#define ui_slime_health "EAST,CENTER:15"  //same as humans and constructs
 
 // AI
 #define ui_ai_core "SOUTH:6,WEST"

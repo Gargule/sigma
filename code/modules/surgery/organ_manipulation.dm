@@ -125,6 +125,12 @@
 			else
 				return -1
 
+/* //theta-code
+	else if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
+		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
+		return -1
+
+*/
 /datum/surgery_step/manipulate_organs/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results)
 	if(current_type == "insert")
 		if(istype(tool, /obj/item/organ_storage))

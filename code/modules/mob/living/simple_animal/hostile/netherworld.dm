@@ -104,6 +104,59 @@
 					return M.occupant
 	return null
 
+/obj/effect/dummy/phased_mob/creature/bullet_act()
+	return BULLET_ACT_FORCE_PIERCE
+
+/obj/effect/dummy/phased_mob/creature/singularity_act()
+	return
+
+/datum/action/innate/creature/teleport/Activate()
+	var/mob/living/simple_animal/hostile/netherworld/N = owner
+	var/obj/effect/dummy/phased_mob/creature/holder = null
+	if(N.stat == DEAD)
+		return
+	var/turf/T = get_turf(N)
+	if (N.can_be_seen(T) || !do_after(N, 60, target = T))
+		to_chat(N, "<span class='warning'>You can't phase in or out while being observed and you must stay still!</span>")
+		return
+	if (get_dist(N, T) != 0 || N.can_be_seen(T))
+		to_chat(N, "<span class='warning'>Action cancelled, as you moved while reappearing or someone is now viewing your location.</span>")
+		return
+	if(N.is_phased)
+		holder = N.loc
+		N.forceMove(T)
+		QDEL_NULL(holder)
+		N.is_phased = FALSE
+		playsound(get_turf(N), 'sound/effects/podwoosh.ogg', 50, TRUE, -1)
+	else
+		playsound(get_turf(N), 'sound/effects/podwoosh.ogg', 50, TRUE, -1)
+		holder = new /obj/effect/dummy/phased_mob/creature(T)
+		N.forceMove(holder)
+		N.is_phased = TRUE
+
+/mob/living/simple_animal/hostile/netherworld/proc/can_be_seen(turf/location)
+	// Check for darkness
+	if(location && location.lighting_object)
+		if(location.get_lumcount()<0.1) // No one can see us in the darkness, right?
+			return null
+
+	// We aren't in darkness, loop for viewers.
+	var/list/check_list = list(src)
+	if(location)
+		check_list += location
+
+	// This loop will, at most, loop twice.
+	for(var/atom/check in check_list)
+		for(var/mob/living/M in viewers(world.view + 1, check) - src)
+			if(M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege)
+				if(!M.eye_blind)
+					return M
+		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
+			if(M.occupant && M.occupant.client)
+				if(!M.occupant.eye_blind)
+					return M.occupant
+	return null
+
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"
 	desc = "A pinkish, fungoid crustacean-like creature with numerous pairs of clawed appendages and a head covered with waving antennae."

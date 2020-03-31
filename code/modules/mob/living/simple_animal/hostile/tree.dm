@@ -44,6 +44,8 @@
 
 	var/is_tree = TRUE
 
+	var/is_tree = TRUE
+
 /mob/living/simple_animal/hostile/tree/Life()
 	..()
 	if(is_tree && isopenturf(loc))

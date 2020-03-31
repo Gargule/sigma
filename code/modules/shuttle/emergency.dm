@@ -367,6 +367,7 @@
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				launch_status = ENDGAME_LAUNCHED
+				webhook_send_roundstatus("shuttle left")
 				setTimer(SSshuttle.emergencyEscapeTime * engine_coeff)
 				priority_announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, null, "Priority")
 				webhook_send_roundstatus("shuttle left")
@@ -414,6 +415,7 @@
 				dock_id(destination_dock)
 				mode = SHUTTLE_ENDGAME
 				timer = 0
+				webhook_send_roundstatus("shuttle escaped")
 
 /obj/docking_port/mobile/emergency/transit_failure()
 	..()

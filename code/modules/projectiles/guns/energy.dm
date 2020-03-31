@@ -80,7 +80,7 @@
 		cell.give(100)
 		if(!chambered) //if empty chamber we try to charge a new shot
 			recharge_newshot(TRUE)
-		update_icon()
+		update_icon(FALSE, TRUE)
 
 /obj/item/gun/energy/attack_self(mob/living/user as mob)
 	if(ammo_type.len > 1)

@@ -35,7 +35,6 @@
 	var/chosenmap = input("Choose a map to change to", "Change Map")  as null|anything in sortList(maprotatechoices)|"Custom"
 	if (!chosenmap)
 		return
-
 	if(chosenmap == "Custom")
 		message_admins("[key_name_admin(usr)] is changing the map to a custom map")
 		log_admin("[key_name(usr)] is changing the map to a custom map")

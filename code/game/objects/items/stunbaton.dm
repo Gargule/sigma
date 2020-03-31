@@ -83,6 +83,20 @@
 		update_icon()
 	return ..()
 
+
+/obj/item/melee/baton/Destroy()
+	if(cell)
+		QDEL_NULL(cell)
+	return ..()
+
+/obj/item/melee/baton/handle_atom_del(atom/A)
+	if(A == cell)
+		cell = null
+		turned_on = FALSE
+		update_icon()
+	return ..()
+
+
 /obj/item/melee/baton/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	//Only mob/living types have stun handling

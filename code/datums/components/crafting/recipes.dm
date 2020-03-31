@@ -25,6 +25,16 @@
 /datum/crafting_recipe/proc/check_requirements(mob/user, list/collected_requirements)
 	return TRUE
 
+/datum/crafting_recipe/pin_removal
+	name = "Pin Removal"
+	result = /obj/item/gun
+	reqs = list(/obj/item/gun = 1)
+	parts = list(/obj/item/gun = 1)
+	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 50
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/IED
 	name = "IED"
 	result = /obj/item/grenade/iedcasing
@@ -549,6 +559,14 @@
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 1,
 				/obj/item/stack/sheet/sinew = 2)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/skilt
+	name = "Sinew Kilt"
+	result = /obj/item/clothing/accessory/skilt
+	time = 20
+	reqs = list(/obj/item/stack/sheet/bone = 1,
+				 /obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bracers

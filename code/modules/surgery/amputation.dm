@@ -28,4 +28,4 @@
 		target_limb.drop_limb()
 	if(user.mind)
 		user.mind.adjust_experience(/datum/skill/medical, experience_given)
-	return ..()
+	return ..(default_display_results = FALSE)

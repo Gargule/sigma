@@ -1,7 +1,7 @@
 /datum/controller/configuration
 	name = "Configuration"
 
-	var/directory = "config"
+	var/directory = "cfg"
 
 	var/warned_deprecated_configs = FALSE
 	var/hiding_entries_by_type = TRUE	//Set for readability, admins can set this to FALSE if they want to debug it
@@ -34,6 +34,10 @@
 /datum/controller/configuration/proc/Load(_directory)
 	if(IsAdminAdvancedProcCall())		//If admin proccall is detected down the line it will horribly break everything.
 		return
+	// "I don't care about your configs. I have my own dir." (c) TRAVIS
+	#ifdef TRAVISBUILDING
+	directory = "config"
+	#endif
 	if(_directory)
 		directory = _directory
 	if(entries)
@@ -279,6 +283,9 @@ Example config:
 			policy = parsed
 
 /datum/controller/configuration/proc/loadmaplist(filename)
+
+	GLOB.webhook_can_fire = 1 //lazy motherfucker
+
 	log_config("Loading config file [filename]...")
 	filename = "[directory]/[filename]"
 	var/list/Lines = world.file2list(filename)

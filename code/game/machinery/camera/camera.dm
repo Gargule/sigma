@@ -320,10 +320,10 @@
 					to_chat(AI, "<span class='name'>[U]</span> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
 					to_chat(AI, "<b><a href='?src=[REF(AI)];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
-				AI.last_paper_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
+				AI.last_paper_seen = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
 			else if (O.client.eye == src)
 				to_chat(O, "<span class='name'>[U]</span> holds \a [itemname] up to one of the cameras ...")
-				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
+				O << browse(text("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 		return
 
 	else if(istype(I, /obj/item/camera_bug))
@@ -452,6 +452,30 @@
 	else
 		see = get_hear(view_range, pos)
 	return see
+
+/atom/proc/auto_turn()
+	//Automatically turns based on nearby walls.
+	var/turf/closed/wall/T = null
+	for(var/i in GLOB.cardinals)
+		T = get_ranged_target_turf(src, i, 1)
+		if(istype(T))
+			setDir(turn(i, 180))
+			break
+
+//Return a working camera that can see a given mob
+//or null if none
+/proc/seen_by_camera(var/mob/M)
+	for(var/obj/machinery/camera/C in oview(4, M))
+		if(C.can_use())	// check if camera disabled
+			return C
+	return null
+
+/proc/near_range_camera(var/mob/M)
+	for(var/obj/machinery/camera/C in range(4, M))
+		if(C.can_use())	// check if camera disabled
+			return C
+
+	return null
 
 /obj/machinery/camera/proc/Togglelight(on=0)
 	for(var/mob/living/silicon/ai/A in GLOB.ai_list)

@@ -281,6 +281,15 @@
 	. = ..()
 	extra_settings[NES_MOOD_MESSAGE] = new /datum/nanite_extra_setting/text("HAPPINESS ENHANCEMENT")
 
+/* //sigmacode?
+/datum/nanite_program/good_mood/get_extra_setting_value(setting)
+	if(setting == NES_MOOD_MESSAGE)
+		return message
+
+/datum/nanite_program/good_mood/copy_extra_settings_to(datum/nanite_program/good_mood/target)
+	target.message = message
+//theta-sigma*/
+
 /datum/nanite_program/good_mood/enable_passive_effect()
 	. = ..()
 	SEND_SIGNAL(host_mob, COMSIG_ADD_MOOD_EVENT, "nanite_happy", /datum/mood_event/nanite_happiness, get_extra_setting_value(NES_MOOD_MESSAGE))

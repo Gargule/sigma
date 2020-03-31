@@ -35,10 +35,14 @@
 	var/atom/movable/AM = parent
 	restore_position(M)
 	unequip_buckle_inhands(M)
+	M.updating_glide_size = TRUE
 	if(del_on_unbuckle_all && !AM.has_buckled_mobs())
 		qdel(src)
 
 /datum/component/riding/proc/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
+	var/atom/movable/AM = parent
+	M.set_glide_size(AM.glide_size)
+	M.updating_glide_size = FALSE
 	handle_vehicle_offsets()
 
 /datum/component/riding/proc/handle_vehicle_layer()
@@ -56,8 +60,10 @@
 
 /datum/component/riding/proc/vehicle_moved(datum/source)
 	var/atom/movable/AM = parent
-	for(var/i in AM.buckled_mobs)
-		ride_check(i)
+	AM.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
+	for(var/mob/M in AM.buckled_mobs)
+		ride_check(M)
+		M.set_glide_size(AM.glide_size)
 	handle_vehicle_offsets()
 	handle_vehicle_layer()
 
@@ -85,6 +91,7 @@
 			M.visible_message("<span class='warning'>[M] is thrown violently from [AM]!</span>", \
 			"<span class='warning'>You're thrown violently from [AM]!</span>")
 			M.throw_at(target, 14, 5, AM, gentle = FALSE)
+
 		M.Knockdown(3 SECONDS)
 
 /datum/component/riding/proc/handle_vehicle_offsets()
@@ -376,4 +383,3 @@
 		if(rider in AM.buckled_mobs)
 			AM.unbuckle_mob(rider)
 	. = ..()
-

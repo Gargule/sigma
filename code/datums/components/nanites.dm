@@ -119,7 +119,6 @@
 			next_sync = world.time + NANITE_SYNC_DELAY
 	set_nanite_bar()
 
-
 /datum/component/nanites/proc/delete_nanites()
 	qdel(src)
 

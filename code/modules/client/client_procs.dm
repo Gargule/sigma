@@ -1,7 +1,7 @@
 	////////////
 	//SECURITY//
 	////////////
-#define UPLOAD_LIMIT		1048576	//Restricts client uploads to the server to 1MB //Could probably do with being lower.
+#define UPLOAD_LIMIT		6291456	//Restricts client uploads to the server to 6MB //Could probably do with being lower. //THETA incrase from 1 to 6
 
 GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
@@ -256,6 +256,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
 	log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
+	webhook_send_status_update("client_login","[src.key]")
 
 	var/alert_mob_dupe_login = FALSE
 	if(CONFIG_GET(flag/log_access))
@@ -312,6 +313,11 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			else
 				qdel(src)
 				return
+	// THETA BEGIN
+	if (byond_version < 513)
+		to_chat(src, "<span class='userdanger'>All text will be fucked. Update BYOND to version 513!</span>")
+		to_chat(src, "<span class='danger'>You are currently using [byond_version] BYOND version, but our server using UTF-8 to handle game. I recommend you to update it at least 513 version - first, where BYOND provides UTF-8 support.</span>")
+	// THETA END
 
 	if(SSinput.initialized)
 		set_macros()
